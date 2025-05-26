@@ -72,7 +72,7 @@
       100% { transform: translateY(-10vh) rotate(45deg) scale(0.5); opacity: 0; }
     }
 
-    #playButton {
+    #messageBtn {
       margin-top: 30px;
       padding: 12px 25px;
       font-size: 1rem;
@@ -85,18 +85,31 @@
       transition: background 0.3s;
     }
 
-    #playButton:hover {
+    #messageBtn:hover {
       background-color: #cc005f;
+    }
+
+    #romanticMessage {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: #b30059;
+      max-width: 80%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #romanticMessage.show {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
   <h1>Feliz Aniversário, meu amor ❤️</h1>
-  <button id="playButton">Clique pra tocar uma música 💕</button>
+  <button id="messageBtn">Clique para ver uma mensagem especial 💌</button>
 
   <div class="hearts" id="hearts"></div>
-  <audio id="audio" src="all_that_matters.mp3" loop></audio>
+  <p id="romanticMessage">Você é a razão dos meus sorrisos, a inspiração dos meus dias e o amor que dá sentido à minha vida. Feliz aniversário! Que hoje e sempre seu coração transborde alegria, amor e tudo de mais lindo. Te amo! 💖</p>
 
   <script>
     // Corações flutuantes
@@ -110,13 +123,12 @@
     }
     setInterval(createHeart, 300);
 
-    // Tocar música MP3
-    const playButton = document.getElementById("playButton");
-    const audio = document.getElementById("audio");
-    playButton.addEventListener("click", function () {
-      audio.play();
-      playButton.innerText = "Tocando... ❤️";
-      playButton.disabled = true;
+    // Mostrar mensagem
+    const btn = document.getElementById("messageBtn");
+    const msg = document.getElementById("romanticMessage");
+    btn.addEventListener("click", () => {
+      msg.classList.add("show");
+      btn.style.display = "none";
     });
   </script>
 
