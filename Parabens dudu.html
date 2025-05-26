@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Aniversário, meu amor</title>
+  <style>
+    body {
+      background: linear-gradient(to top right, #ffe0f0, #ffcce0);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #e60073;
+      text-shadow: 2px 2px 5px #ff99cc;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d88;
+      transform: rotate(45deg);
+      animation: float 5s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d88;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg) scale(1); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg) scale(0.5); opacity: 0; }
+    }
+
+    #playButton {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      background-color: #e60073;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    #playButton:hover {
+      background-color: #cc005f;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Feliz Aniversário, meu amor ❤️</h1>
+  <button id="playButton">Clique aqui pra tocar uma música 💕</button>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    // Corações flutuantes
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      document.getElementById('hearts').appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    // Tocar música MP3
+    const playButton = document.getElementById("playButton");
+    const audio = document.getElementById("audio");
+    playButton.addEventListener("click", function () {
+      audio.play();
+      playButton.innerText = "Tocando... ❤️";
+      playButton.disabled = true;
+    });
+  </script>
+
+</body>
+</html>
