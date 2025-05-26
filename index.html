@@ -101,6 +101,18 @@
     #romanticMessage.show {
       opacity: 1;
     }
+
+    #loveImage {
+      margin-top: 20px;
+      width: 200px;
+      max-width: 80%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #loveImage.show {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -110,9 +122,9 @@
 
   <div class="hearts" id="hearts"></div>
   <p id="romanticMessage">Você é a razão dos meus sorrisos, a inspiração dos meus dias e o amor que dá sentido à minha vida. Feliz aniversário! Que hoje e sempre seu coração transborde alegria, amor e tudo de mais lindo. Te amo! 💖</p>
+  <img id="loveImage" src="love.png" alt="Amor" />
 
   <script>
-    // Corações flutuantes
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
@@ -123,11 +135,13 @@
     }
     setInterval(createHeart, 300);
 
-    // Mostrar mensagem
     const btn = document.getElementById("messageBtn");
     const msg = document.getElementById("romanticMessage");
+    const img = document.getElementById("loveImage");
+
     btn.addEventListener("click", () => {
       msg.classList.add("show");
+      img.classList.add("show");
       btn.style.display = "none";
     });
   </script>
