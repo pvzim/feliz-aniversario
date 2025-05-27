@@ -2,40 +2,98 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feliz Aniversário, meu amor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(to top right, #ffe0f0, #ffcce0);
-      height: 100vh;
-      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(to bottom right, #fff0f5, #ffe6f0);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
+      min-height: 100vh;
+      overflow: hidden;
     }
 
     h1 {
       font-size: 3rem;
       color: #e60073;
-      text-shadow: 2px 2px 5px #ff99cc;
+      text-shadow: 2px 2px 8px #ffcce5;
+      margin-bottom: 20px;
       animation: pulse 1.5s infinite;
+      text-align: center;
     }
 
     @keyframes pulse {
       0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+      50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
 
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    #messageBtn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      background-color: #e60073;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    #messageBtn:hover {
+      background-color: #cc005f;
+    }
+
+    #romanticMessage {
+      margin-top: 25px;
+      font-size: 1.2rem;
+      color: #b30059;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #romanticMessage.show {
+      opacity: 1;
+    }
+
+    #loveImage {
+      margin-top: 20px;
+      max-width: 80%;
+      height: auto;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #loveImage.show {
+      opacity: 1;
+    }
+
     .hearts {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
+      z-index: -1;
     }
 
     .heart {
@@ -44,7 +102,7 @@
       height: 20px;
       background-color: #ff4d88;
       transform: rotate(45deg);
-      animation: float 5s linear infinite;
+      animation: float 6s linear infinite;
     }
 
     .heart::before,
@@ -72,69 +130,43 @@
       100% { transform: translateY(-10vh) rotate(45deg) scale(0.5); opacity: 0; }
     }
 
-    #messageBtn {
-      margin-top: 30px;
-      padding: 12px 25px;
-      font-size: 1rem;
-      background-color: #e60073;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background 0.3s;
-    }
-
-    #messageBtn:hover {
-      background-color: #cc005f;
-    }
-
-    #romanticMessage {
-      margin-top: 30px;
-      font-size: 1.2rem;
-      color: #b30059;
-      max-width: 80%;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    #romanticMessage.show {
-      opacity: 1;
-    }
-
-    #loveImage {
-      margin-top: 20px;
-      width: 200px;
-      max-width: 80%;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    #loveImage.show {
-      opacity: 1;
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .card {
+        padding: 20px;
+      }
+      #romanticMessage {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>Feliz Aniversário, meu amor ❤️</h1>
-  <button id="messageBtn">Clique para ver uma mensagem especial 💌</button>
+  <div class="card">
+    <h1>Feliz Aniversário, meu amor ❤️</h1>
+    <button id="messageBtn">Clique para ver uma mensagem especial 💌</button>
+    <p id="romanticMessage">Você é a razão dos meus sorrisos, a inspiração dos meus dias e o amor que dá sentido à minha vida. Feliz aniversário! Que hoje e sempre seu coração transborde alegria, amor e tudo de mais lindo. Te amo! 💖</p>
+    <img id="loveImage" src="love.PNG" alt="Amor">
+  </div>
 
   <div class="hearts" id="hearts"></div>
-  <p id="romanticMessage">Você é a razão dos meus sorrisos, a inspiração dos meus dias e o amor que dá sentido à minha vida. Feliz aniversário! Que hoje e sempre seu coração transborde alegria, amor e tudo de mais lindo. Te amo! 💖</p>
-  <img id="loveImage" src="love.PNG" alt="Amor" />
 
   <script>
+    // Criar corações animados
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
       document.getElementById('hearts').appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+      setTimeout(() => heart.remove(), 6000);
     }
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 400);
 
+    // Mostrar mensagem e imagem
     const btn = document.getElementById("messageBtn");
     const msg = document.getElementById("romanticMessage");
     const img = document.getElementById("loveImage");
